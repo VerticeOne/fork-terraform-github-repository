@@ -91,7 +91,8 @@ features like Branch Protection or Collaborator Management.
   Teams,
   Deploy Keys,
   Projects,
-  Repository Webhooks
+  Repository Webhooks,
+  GitHub App Installations
 
 - _Features not yet implemented_:
   Project Columns support,

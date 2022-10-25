@@ -92,7 +92,8 @@ section {
         Teams,
         Deploy Keys,
         Projects,
-        Repository Webhooks
+        Repository Webhooks,
+        GitHub App Installations
 
       - _Features not yet implemented_:
         Project Columns support,
