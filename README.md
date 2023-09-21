@@ -3,50 +3,51 @@
 [![Build Status](https://github.com/mineiros-io/terraform-github-repository/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/mineiros-io/terraform-github-repository/actions)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/mineiros-io/terraform-github-repository.svg?label=latest&sort=semver)](https://github.com/mineiros-io/terraform-github-repository/releases)
 [![Terraform Version](https://img.shields.io/badge/terraform-1.x-623CE4.svg?logo=terraform)](https://github.com/hashicorp/terraform/releases)
-[![Github Provider Version](https://img.shields.io/badge/GH-4.10+-F8991D.svg?logo=terraform)](https://github.com/terraform-providers/terraform-provider-github/releases)
+[![Github Provider Version](https://img.shields.io/badge/GH-4.31+-F8991D.svg?logo=terraform)](https://github.com/terraform-providers/terraform-provider-github/releases)
 [![Join Slack](https://img.shields.io/badge/slack-@mineiros--community-f32752.svg?logo=slack)](https://join.slack.com/t/mineiros-community/shared_invite/zt-ehidestg-aLGoIENLVs6tvwJ11w9WGg)
 
 # terraform-github-repository
 
 A [Terraform] module for creating a public or private repository on [Github].
 
-**_This module supports Terraform v1.x and is compatible with the Official Terraform GitHub Provider v4.20 and above from `integrations/github`._**
+**_This module supports Terraform v1.x and is compatible with the Official Terraform GitHub Provider v4.31 and above from `integrations/github`._**
 
 **Attention: This module is incompatible with the Hashicorp GitHub Provider! The latest version of this module supporting `hashicorp/github` provider is `~> 0.10.0`**
 
-** Note: Versions 5.3.0, 5.4.0, and 5.5.0 of the Terraform Github Provider have broken branch protections support and should not be used.**
+** Note: Versions 5.3.0, 5.4.0, 5.5.0, and 5.6.0 of the Terraform Github Provider have broken branch protections support and should not be used.**
 
 
-- [GitHub as Code](#github-as-code)
-- [Module Features](#module-features)
-- [Getting Started](#getting-started)
-- [Module Argument Reference](#module-argument-reference)
-  - [Main Resource Configuration](#main-resource-configuration)
-  - [Extended Resource Configuration](#extended-resource-configuration)
-    - [Repository Creation Configuration](#repository-creation-configuration)
-    - [Teams Configuration](#teams-configuration)
-    - [Collaborator Configuration](#collaborator-configuration)
-    - [Branches Configuration](#branches-configuration)
-    - [Deploy Keys Configuration](#deploy-keys-configuration)
-    - [Branch Protections v3 Configuration](#branch-protections-v3-configuration)
-    - [Branch Protections v4 Configuration](#branch-protections-v4-configuration)
-    - [Issue Labels Configuration](#issue-labels-configuration)
-    - [Projects Configuration](#projects-configuration)
-    - [Webhooks Configuration](#webhooks-configuration)
-    - [Secrets Configuration](#secrets-configuration)
-    - [Autolink References Configuration](#autolink-references-configuration)
-    - [App Installations](#app-installations)
-  - [Module Configuration](#module-configuration)
-- [Module Outputs](#module-outputs)
-- [External Documentation](#external-documentation)
-  - [Terraform Github Provider Documentation](#terraform-github-provider-documentation)
-- [Module Versioning](#module-versioning)
-  - [Backwards compatibility in `0.0.z` and `0.y.z` version](#backwards-compatibility-in-00z-and-0yz-version)
-- [About Mineiros](#about-mineiros)
-- [Reporting Issues](#reporting-issues)
-- [Contributing](#contributing)
-- [Makefile Targets](#makefile-targets)
-- [License](#license)
+- [terraform-github-repository](#terraform-github-repository)
+  - [GitHub as Code](#github-as-code)
+  - [Module Features](#module-features)
+  - [Getting Started](#getting-started)
+  - [Module Argument Reference](#module-argument-reference)
+    - [Main Resource Configuration](#main-resource-configuration)
+    - [Extended Resource Configuration](#extended-resource-configuration)
+      - [Repository Creation Configuration](#repository-creation-configuration)
+      - [Teams Configuration](#teams-configuration)
+      - [Collaborator Configuration](#collaborator-configuration)
+      - [Branches Configuration](#branches-configuration)
+      - [Deploy Keys Configuration](#deploy-keys-configuration)
+      - [Branch Protections v3 Configuration](#branch-protections-v3-configuration)
+      - [Branch Protections v4 Configuration](#branch-protections-v4-configuration)
+      - [Issue Labels Configuration](#issue-labels-configuration)
+      - [Projects Configuration](#projects-configuration)
+      - [Webhooks Configuration](#webhooks-configuration)
+      - [Secrets Configuration](#secrets-configuration)
+      - [Autolink References Configuration](#autolink-references-configuration)
+      - [App Installations](#app-installations)
+    - [Module Configuration](#module-configuration)
+  - [Module Outputs](#module-outputs)
+  - [External Documentation](#external-documentation)
+    - [Terraform Github Provider Documentation](#terraform-github-provider-documentation)
+  - [Module Versioning](#module-versioning)
+    - [Backwards compatibility in `0.0.z` and `0.y.z` version](#backwards-compatibility-in-00z-and-0yz-version)
+  - [About Mineiros](#about-mineiros)
+  - [Reporting Issues](#reporting-issues)
+  - [Contributing](#contributing)
+  - [Makefile Targets](#makefile-targets)
+  - [License](#license)
 
 ## GitHub as Code
 
@@ -90,7 +91,8 @@ features like Branch Protection or Collaborator Management.
   Teams,
   Deploy Keys,
   Projects,
-  Repository Webhooks
+  Repository Webhooks,
+  GitHub App Installations
 
 - _Features not yet implemented_:
   Project Columns support,
@@ -181,6 +183,30 @@ See [variables.tf] and [examples/] for details and use-cases.
   reviews are met and status checks have passed.
 
   Default is `false`.
+
+- [**`squash_merge_commit_title`**](#var-squash_merge_commit_title): *(Optional `string`)*<a name="var-squash_merge_commit_title"></a>
+
+  Set to `PR_TITLE` or `COMMIT_OR_PR_TITLE` for a default squash merge commit title.
+
+  Default is `"COMMIT_OR_PR_TITLE"`.
+
+- [**`squash_merge_commit_message`**](#var-squash_merge_commit_message): *(Optional `string`)*<a name="var-squash_merge_commit_message"></a>
+
+  Set to `PR_BODY`, `COMMIT_MESSAGES`, or `BLANK` for a default squash merge commit message.
+
+  Default is `"COMMIT_MESSAGES"`.
+
+- [**`merge_commit_title`**](#var-merge_commit_title): *(Optional `string`)*<a name="var-merge_commit_title"></a>
+
+  Set to `PR_TITLE` or `MERGE_MESSAGE` for a default merge commit title.
+
+  Default is `"MERGE_MESSAGE"`.
+
+- [**`merge_commit_message`**](#var-merge_commit_message): *(Optional `string`)*<a name="var-merge_commit_message"></a>
+
+  Set to `PR_BODY`, `PR_TITLE`, or `BLANK` for a default merge commit message.
+
+  Default is `"PR_TITLE"`.
 
 - [**`description`**](#var-description): *(Optional `string`)*<a name="var-description"></a>
 
@@ -275,6 +301,10 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Set to `false` to disable security alerts for vulnerable dependencies.
   Enabling requires alerts to be enabled on the owner level.
+
+- [**`ignore_vulnerability_alerts_during_read`**](#var-ignore_vulnerability_alerts_during_read): *(Optional `bool`)*<a name="var-ignore_vulnerability_alerts_during_read"></a>
+
+  Set to `true` to not call the vulnerability alerts endpoint so the resource can also be used without admin permissions during read.
 
 - [**`archive_on_destroy`**](#var-archive_on_destroy): *(Optional `bool`)*<a name="var-archive_on_destroy"></a>
 
