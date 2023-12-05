@@ -523,6 +523,7 @@ variable "encrypted_secrets" {
 variable "autolink_references" {
   description = "(Optional) Configuring autolink references. For details please check: https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_autolink_reference"
   type = list(object({
+    is_alphanumeric     = optional(bool, true)
     key_prefix          = string
     target_url_template = string
   }))
