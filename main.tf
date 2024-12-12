@@ -583,7 +583,7 @@ resource "github_app_installation_repository" "app_installation_repository" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "github_actions_repository_permissions" "repository_workflows" {
-  for_each = var.workflow_disabled.enable ? [1] : []
+  for_each = var.workflow_disabled.enabled ? [1] : []
   repository = github_repository.repository.name
   enabled = var.workflow_disabled.enabled_workflows
   allowed_actions = var.workflow_disabled.allowed_actions
