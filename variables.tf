@@ -603,3 +603,19 @@ variable "module_depends_on" {
   description = "(Optional) Define resources this module indirectly depends_on."
   default     = []
 }
+
+variable "github_actions_permissions" {
+  type = object({
+    enabled              = bool
+    enabled_workflows    = optional(bool, false)
+    allowed_actions      = optional(string, "all")
+    github_owned_allowed = optional(bool, false)
+    verified_allowed     = optional(bool, false)
+    patterns_allowed     = optional(list(string), [])
+  })
+  description = "(Optional) Disable Github Actions on the repository or allow only specific workflow(s)"
+
+  default = {
+    enabled = false
+  }
+}

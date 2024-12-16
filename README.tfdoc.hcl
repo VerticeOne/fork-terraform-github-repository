@@ -1265,6 +1265,69 @@ section {
           END
         }
       }
+
+      section {
+        title = "Disable GitHub Actions for repository"
+
+        variable "github_actions_permissions" {
+          type = object(github_actions_permissions)
+          default = {
+            enabled = false
+          }
+          description = <<-END
+            Allows disabling GitHub Actions for the entire repository or enabling only selected
+            GitHub Actions in the repository.
+          END
+
+          attribute "enabled" {
+            required    = true
+            type        = bool
+            description = <<-END
+                Allows the use of that resource.
+              END
+          }
+
+          attribute "enabled_workflows" {
+            type        = bool
+            default     = false
+            description = <<-END
+                Allows disabling GitHub Actions on the repository.
+              END
+          }
+
+          attribute "allowed_actions" {
+            type        = string
+            default     = "all"
+            description = <<-END
+                The permissions policy that controls which actions are allowed to run. It can be one of the following: `all`, `local_only`, or `selected`.
+              END
+          }
+
+          attribute "github_owned_allowed" {
+            type        = bool
+            default     = false
+            description = <<-END
+                Allows the ability to run GitHub-owned GitHub Actions.
+              END
+          }
+
+          attribute "verified_allowed" {
+            type        = bool
+            default     = false
+            description = <<-END
+                Allows the ability to run GitHub Actions from verified creators on the GitHub Marketplace.
+              END
+          }
+
+          attribute "patterns_allowed" {
+            type        = list(string)
+            default     = []
+            description = <<-END
+                A list of GitHub Actions that can be run on the repository.
+              END
+          }
+        }
+      }
     }
 
     section {

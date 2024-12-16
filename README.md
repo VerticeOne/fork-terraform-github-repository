@@ -17,37 +17,37 @@ A [Terraform] module for creating a public or private repository on [Github].
 ** Note: Versions 5.3.0, 5.4.0, 5.5.0, and 5.6.0 of the Terraform Github Provider have broken branch protections support and should not be used.**
 
 
-- [terraform-github-repository](#terraform-github-repository)
-  - [GitHub as Code](#github-as-code)
-  - [Module Features](#module-features)
-  - [Getting Started](#getting-started)
-  - [Module Argument Reference](#module-argument-reference)
-    - [Main Resource Configuration](#main-resource-configuration)
-    - [Extended Resource Configuration](#extended-resource-configuration)
-      - [Repository Creation Configuration](#repository-creation-configuration)
-      - [Teams Configuration](#teams-configuration)
-      - [Collaborator Configuration](#collaborator-configuration)
-      - [Branches Configuration](#branches-configuration)
-      - [Deploy Keys Configuration](#deploy-keys-configuration)
-      - [Branch Protections v3 Configuration](#branch-protections-v3-configuration)
-      - [Branch Protections v4 Configuration](#branch-protections-v4-configuration)
-      - [Issue Labels Configuration](#issue-labels-configuration)
-      - [Projects Configuration](#projects-configuration)
-      - [Webhooks Configuration](#webhooks-configuration)
-      - [Secrets Configuration](#secrets-configuration)
-      - [Autolink References Configuration](#autolink-references-configuration)
-      - [App Installations](#app-installations)
-    - [Module Configuration](#module-configuration)
-  - [Module Outputs](#module-outputs)
-  - [External Documentation](#external-documentation)
-    - [Terraform Github Provider Documentation](#terraform-github-provider-documentation)
-  - [Module Versioning](#module-versioning)
-    - [Backwards compatibility in `0.0.z` and `0.y.z` version](#backwards-compatibility-in-00z-and-0yz-version)
-  - [About Mineiros](#about-mineiros)
-  - [Reporting Issues](#reporting-issues)
-  - [Contributing](#contributing)
-  - [Makefile Targets](#makefile-targets)
-  - [License](#license)
+- [GitHub as Code](#github-as-code)
+- [Module Features](#module-features)
+- [Getting Started](#getting-started)
+- [Module Argument Reference](#module-argument-reference)
+  - [Main Resource Configuration](#main-resource-configuration)
+  - [Extended Resource Configuration](#extended-resource-configuration)
+    - [Repository Creation Configuration](#repository-creation-configuration)
+    - [Teams Configuration](#teams-configuration)
+    - [Collaborator Configuration](#collaborator-configuration)
+    - [Branches Configuration](#branches-configuration)
+    - [Deploy Keys Configuration](#deploy-keys-configuration)
+    - [Branch Protections v3 Configuration](#branch-protections-v3-configuration)
+    - [Branch Protections v4 Configuration](#branch-protections-v4-configuration)
+    - [Issue Labels Configuration](#issue-labels-configuration)
+    - [Projects Configuration](#projects-configuration)
+    - [Webhooks Configuration](#webhooks-configuration)
+    - [Secrets Configuration](#secrets-configuration)
+    - [Autolink References Configuration](#autolink-references-configuration)
+    - [App Installations](#app-installations)
+    - [Disable GitHub Actions for repository](#disable-github-actions-for-repository)
+  - [Module Configuration](#module-configuration)
+- [Module Outputs](#module-outputs)
+- [External Documentation](#external-documentation)
+  - [Terraform Github Provider Documentation](#terraform-github-provider-documentation)
+- [Module Versioning](#module-versioning)
+  - [Backwards compatibility in `0.0.z` and `0.y.z` version](#backwards-compatibility-in-00z-and-0yz-version)
+- [About Mineiros](#about-mineiros)
+- [Reporting Issues](#reporting-issues)
+- [Contributing](#contributing)
+- [Makefile Targets](#makefile-targets)
+- [License](#license)
 
 ## GitHub as Code
 
@@ -966,6 +966,51 @@ This is due to some terraform limitation and we will update the module once terr
   ```hcl
   app_installations = ["05405144", "12556423"]
   ```
+
+#### Disable GitHub Actions for repository
+
+- [**`github_actions_permissions`**](#var-github_actions_permissions): *(Optional `object(github_actions_permissions)`)*<a name="var-github_actions_permissions"></a>
+
+  Allows disabling GitHub Actions for the entire repository or enabling only selected
+  GitHub Actions in the repository.
+
+  Default is `{"enabled":false}`.
+
+  The `github_actions_permissions` object accepts the following attributes:
+
+  - [**`enabled`**](#attr-github_actions_permissions-enabled): *(**Required** `bool`)*<a name="attr-github_actions_permissions-enabled"></a>
+
+    Allows the use of that resource.
+
+  - [**`enabled_workflows`**](#attr-github_actions_permissions-enabled_workflows): *(Optional `bool`)*<a name="attr-github_actions_permissions-enabled_workflows"></a>
+
+    Allows disabling GitHub Actions on the repository.
+
+    Default is `false`.
+
+  - [**`allowed_actions`**](#attr-github_actions_permissions-allowed_actions): *(Optional `string`)*<a name="attr-github_actions_permissions-allowed_actions"></a>
+
+    The permissions policy that controls which actions are allowed to run. It can be one of the following: `all`, `local_only`, or `selected`.
+
+    Default is `"all"`.
+
+  - [**`github_owned_allowed`**](#attr-github_actions_permissions-github_owned_allowed): *(Optional `bool`)*<a name="attr-github_actions_permissions-github_owned_allowed"></a>
+
+    Allows the ability to run GitHub-owned GitHub Actions.
+
+    Default is `false`.
+
+  - [**`verified_allowed`**](#attr-github_actions_permissions-verified_allowed): *(Optional `bool`)*<a name="attr-github_actions_permissions-verified_allowed"></a>
+
+    Allows the ability to run GitHub Actions from verified creators on the GitHub Marketplace.
+
+    Default is `false`.
+
+  - [**`patterns_allowed`**](#attr-github_actions_permissions-patterns_allowed): *(Optional `list(string)`)*<a name="attr-github_actions_permissions-patterns_allowed"></a>
+
+    A list of GitHub Actions that can be run on the repository.
+
+    Default is `[]`.
 
 ### Module Configuration
 
