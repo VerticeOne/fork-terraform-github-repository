@@ -606,12 +606,12 @@ variable "module_depends_on" {
 
 variable "workflow_disabled" {
   type = object({
-    enabled = bool
-    enabled_workflows = optional(bool, false)
-    allowed_actions = optional(string, "all")
+    enabled              = bool
+    enabled_workflows    = optional(bool, false)
+    allowed_actions      = optional(string, "all")
     github_owned_allowed = optional(bool, false)
-    verified_allowed = optional(bool, false)
-    patterns_allowed = optional(list(string), [])
+    verified_allowed     = optional(bool, false)
+    patterns_allowed     = optional(list(string), [])
   })
   description = "(Optional) Disable Github Actions on the repository or allow only specific/s workflow/s"
 
