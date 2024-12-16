@@ -604,7 +604,7 @@ variable "module_depends_on" {
   default     = []
 }
 
-variable "workflow_disabled" {
+variable "github_actions_permissions" {
   type = object({
     enabled              = bool
     enabled_workflows    = optional(bool, false)
@@ -613,7 +613,7 @@ variable "workflow_disabled" {
     verified_allowed     = optional(bool, false)
     patterns_allowed     = optional(list(string), [])
   })
-  description = "(Optional) Disable Github Actions on the repository or allow only specific/s workflow/s"
+  description = "(Optional) Disable Github Actions on the repository or allow only specific workflow(s)"
 
   default = {
     enabled = false

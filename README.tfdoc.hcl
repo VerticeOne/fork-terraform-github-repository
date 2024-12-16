@@ -1269,8 +1269,8 @@ section {
       section {
         title = "Disable GitHub Actions for repository"
 
-        variable "workflow_disabled" {
-          type = object(workflow_disabled)
+        variable "github_actions_permissions" {
+          type = object(github_actions_permissions)
           default = {
             enabled = false
           }

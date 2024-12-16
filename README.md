@@ -969,44 +969,44 @@ This is due to some terraform limitation and we will update the module once terr
 
 #### Disable GitHub Actions for repository
 
-- [**`workflow_disabled`**](#var-workflow_disabled): *(Optional `object(workflow_disabled)`)*<a name="var-workflow_disabled"></a>
+- [**`github_actions_permissions`**](#var-github_actions_permissions): *(Optional `object(github_actions_permissions)`)*<a name="var-github_actions_permissions"></a>
 
   Allows disabling GitHub Actions for the entire repository or enabling only selected
   GitHub Actions in the repository.
 
   Default is `{"enabled":false}`.
 
-  The `workflow_disabled` object accepts the following attributes:
+  The `github_actions_permissions` object accepts the following attributes:
 
-  - [**`enabled`**](#attr-workflow_disabled-enabled): *(**Required** `bool`)*<a name="attr-workflow_disabled-enabled"></a>
+  - [**`enabled`**](#attr-github_actions_permissions-enabled): *(**Required** `bool`)*<a name="attr-github_actions_permissions-enabled"></a>
 
     Allows the use of that resource.
 
-  - [**`enabled_workflows`**](#attr-workflow_disabled-enabled_workflows): *(Optional `bool`)*<a name="attr-workflow_disabled-enabled_workflows"></a>
+  - [**`enabled_workflows`**](#attr-github_actions_permissions-enabled_workflows): *(Optional `bool`)*<a name="attr-github_actions_permissions-enabled_workflows"></a>
 
     Allows disabling GitHub Actions on the repository.
 
     Default is `false`.
 
-  - [**`allowed_actions`**](#attr-workflow_disabled-allowed_actions): *(Optional `string`)*<a name="attr-workflow_disabled-allowed_actions"></a>
+  - [**`allowed_actions`**](#attr-github_actions_permissions-allowed_actions): *(Optional `string`)*<a name="attr-github_actions_permissions-allowed_actions"></a>
 
     The permissions policy that controls which actions are allowed to run. It can be one of the following: `all`, `local_only`, or `selected`.
 
     Default is `"all"`.
 
-  - [**`github_owned_allowed`**](#attr-workflow_disabled-github_owned_allowed): *(Optional `bool`)*<a name="attr-workflow_disabled-github_owned_allowed"></a>
+  - [**`github_owned_allowed`**](#attr-github_actions_permissions-github_owned_allowed): *(Optional `bool`)*<a name="attr-github_actions_permissions-github_owned_allowed"></a>
 
     Allows the ability to run GitHub-owned GitHub Actions.
 
     Default is `false`.
 
-  - [**`verified_allowed`**](#attr-workflow_disabled-verified_allowed): *(Optional `bool`)*<a name="attr-workflow_disabled-verified_allowed"></a>
+  - [**`verified_allowed`**](#attr-github_actions_permissions-verified_allowed): *(Optional `bool`)*<a name="attr-github_actions_permissions-verified_allowed"></a>
 
     Allows the ability to run GitHub Actions from verified creators on the GitHub Marketplace.
 
     Default is `false`.
 
-  - [**`patterns_allowed`**](#attr-workflow_disabled-patterns_allowed): *(Optional `list(string)`)*<a name="attr-workflow_disabled-patterns_allowed"></a>
+  - [**`patterns_allowed`**](#attr-github_actions_permissions-patterns_allowed): *(Optional `list(string)`)*<a name="attr-github_actions_permissions-patterns_allowed"></a>
 
     A list of GitHub Actions that can be run on the repository.
 

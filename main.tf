@@ -583,17 +583,17 @@ resource "github_app_installation_repository" "app_installation_repository" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "github_actions_repository_permissions" "repository_workflows" {
-  count           = var.workflow_disabled.enabled ? 1 : 0
+  count           = var.github_actions_permissions.enabled ? 1 : 0
   repository      = github_repository.repository.name
-  enabled         = var.workflow_disabled.enabled_workflows
-  allowed_actions = var.workflow_disabled.allowed_actions
+  enabled         = var.github_actions_permissions.enabled_workflows
+  allowed_actions = var.github_actions_permissions.allowed_actions
 
   dynamic "allowed_actions_config" {
-    for_each = var.workflow_disabled.allowed_actions == "selected" && var.workflow_disabled.enabled_workflows ? [1] : []
+    for_each = var.github_actions_permissions.allowed_actions == "selected" && var.github_actions_permissions.enabled_workflows ? [1] : []
     content {
-      github_owned_allowed = var.workflow_disabled.github_owned_allowed
-      verified_allowed     = var.workflow_disabled.verified_allowed
-      patterns_allowed     = var.workflow_disabled.patterns_allowed
+      github_owned_allowed = var.github_actions_permissions.github_owned_allowed
+      verified_allowed     = var.github_actions_permissions.verified_allowed
+      patterns_allowed     = var.github_actions_permissions.patterns_allowed
     }
   }
 }
