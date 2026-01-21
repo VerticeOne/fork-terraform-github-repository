@@ -602,14 +602,14 @@ variable "environments" {
     wait_timer          = optional(number, 0)
     admin_bypass        = optional(bool, false)
     prevent_self_review = optional(bool, false)
-    reviewers = object({
+    reviewers = optional(object({
       users = optional(list(string), [])
       teams = optional(list(string), [])
-    })
-    deployment_branch_policy = object({
+    }), { users = [], teams = [] })
+    deployment_branch_policy = optional(object({
       protected_branches     = optional(bool, false)
       custom_branch_policies = optional(bool, false)
-    })
+    }), { protected_branches = false, custom_branch_policies = false })
     env_variables              = optional(map(string), {})
     env_secrets                = optional(map(string), {})
     branch_deployment_policies = optional(list(string), [])
