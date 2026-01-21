@@ -47,14 +47,28 @@ resource "github_repository_environment" "repository_environment" {
   can_admins_bypass   = each.value.admin_bypass
   prevent_self_review = each.value.prevent_self_review
 
-  reviewers {
-    users = each.value.reviewers.users
-    teams = each.value.reviewers.teams
+  dynamic "reviewers" {
+    for_each = (
+      length(each.value.reviewers.users) > 0 ||
+      length(each.value.reviewers.teams) > 0
+    ) ? [1] : []
+
+    content {
+      users = each.value.reviewers.users
+      teams = each.value.reviewers.teams
+    }
   }
 
-  deployment_branch_policy {
-    protected_branches     = each.value.deployment_branch_policy.protected_branches
-    custom_branch_policies = each.value.deployment_branch_policy.custom_branch_policies
+  dynamic "deployment_branch_policy" {
+    for_each = (
+      each.value.deployment_branch_policy.protected_branches ||
+      each.value.deployment_branch_policy.custom_branch_policies
+    ) ? [1] : []
+
+    content {
+      protected_branches     = each.value.deployment_branch_policy.protected_branches
+      custom_branch_policies = each.value.deployment_branch_policy.custom_branch_policies
+    }
   }
 }
 
