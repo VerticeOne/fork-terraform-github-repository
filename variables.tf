@@ -63,7 +63,7 @@ variable "has_issues" {
 variable "has_projects" {
   description = "(Optional) Set to true to enable the GitHub Projects features on the repository. Per the github documentation when in an organization that has disabled repository projects it will default to false and will otherwise default to true. If you specify true when it has been disabled it will return an error.  (Default: false)"
   type        = bool
-  default     = null
+  default     = false
 }
 
 variable "has_wiki" {
@@ -447,24 +447,6 @@ variable "deploy_keys_computed" {
   #     title     = "CI User Deploy Key"
   #     key       = computed.resource
   #     read_only = true
-  #   }
-  # ]
-
-  default = []
-}
-
-variable "projects" {
-  description = "(Optional) Create and manage projects for GitHub repository."
-  type = list(object({
-    name = string
-    body = string
-  }))
-
-  # Example:
-  # projects = [
-  #   {
-  #     name = "Testproject"
-  #     body = "This is a fancy test project for testing"
   #   }
   # ]
 
