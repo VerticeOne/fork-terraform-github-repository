@@ -42,8 +42,7 @@ locals {
 
   issue_labels_merge_with_github_labels = local.gh_labels
   # Per default, GitHub activates vulnerability  alerts for public repositories and disables it for private repositories
-  vulnerability_alerts                    = var.vulnerability_alerts != null ? var.vulnerability_alerts : local.private ? false : true
-  ignore_vulnerability_alerts_during_read = var.ignore_vulnerability_alerts_during_read == null ? try(var.defaults.ignore_vulnerability_alerts_during_read, null) : var.ignore_vulnerability_alerts_during_read
+  vulnerability_alerts = var.vulnerability_alerts != null ? var.vulnerability_alerts : local.private ? false : true
 }
 
 locals {
@@ -215,12 +214,22 @@ resource "github_branch_protection" "branch_protection" {
 
   allows_deletions                = try(var.branch_protections_v4[each.value].allows_deletions, false)
   allows_force_pushes             = try(var.branch_protections_v4[each.value].allows_force_pushes, false)
-  blocks_creations                = try(var.branch_protections_v4[each.value].blocks_creations, false)
   enforce_admins                  = try(var.branch_protections_v4[each.value].enforce_admins, true)
-  push_restrictions               = try(var.branch_protections_v4[each.value].push_restrictions, [])
   require_conversation_resolution = try(var.branch_protections_v4[each.value].require_conversation_resolution, false)
   require_signed_commits          = try(var.branch_protections_v4[each.value].require_signed_commits, false)
   required_linear_history         = try(var.branch_protections_v4[each.value].required_linear_history, false)
+
+  dynamic "restrict_pushes" {
+    for_each = (
+      try(var.branch_protections_v4[each.value].blocks_creations, false) ||
+      length(try(var.branch_protections_v4[each.value].push_restrictions, [])) > 0
+    ) ? [1] : []
+
+    content {
+      blocks_creations = try(var.branch_protections_v4[each.value].blocks_creations, false)
+      push_allowances  = try(var.branch_protections_v4[each.value].push_restrictions, [])
+    }
+  }
 
   dynamic "required_pull_request_reviews" {
     for_each = try([var.branch_protections_v4[each.value].required_pull_request_reviews], [])

@@ -551,12 +551,6 @@ variable "vulnerability_alerts" {
   default     = null
 }
 
-variable "ignore_vulnerability_alerts_during_read" {
-  type        = bool
-  description = "(Optional) Set to `true` to not call the vulnerability alerts endpoint so the resource can also be used without admin permissions during read."
-  default     = null
-}
-
 variable "archive_on_destroy" {
   type        = string
   description = "(Optional) Set to `false` to not archive the repository instead of deleting on destroy."
