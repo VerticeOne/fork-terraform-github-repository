@@ -75,7 +75,7 @@ resource "github_repository_environment" "repository_environment" {
 resource "github_actions_environment_variable" "environment_variables" {
   for_each = local.environment_variables
 
-  environment   = each.value.env_name
+  environment   = github_repository_environment.repository_environment[each.value.env_name].environment
   repository    = github_repository.repository.name
   variable_name = each.value.var_name
   value         = each.value.var_value
@@ -83,7 +83,7 @@ resource "github_actions_environment_variable" "environment_variables" {
 
 resource "github_actions_environment_secret" "environment_secrets" {
   for_each        = local.environment_secrets
-  environment     = each.value.env_name
+  environment     = github_repository_environment.repository_environment[each.value.env_name].environment
   repository      = github_repository.repository.name
   secret_name     = each.value.var_name
   plaintext_value = each.value.var_value
@@ -91,7 +91,7 @@ resource "github_actions_environment_secret" "environment_secrets" {
 
 resource "github_repository_environment_deployment_policy" "environment_deployment_policy" {
   for_each       = local.all_environment_deployment_policies
-  environment    = each.value.env_name
+  environment    = github_repository_environment.repository_environment[each.value.env_name].environment
   repository     = github_repository.repository.name
   branch_pattern = lookup(each.value, "branch_pattern", null)
   tag_pattern    = lookup(each.value, "tag_pattern", null)
