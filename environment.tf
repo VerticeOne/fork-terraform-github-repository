@@ -89,7 +89,6 @@ resource "github_actions_environment_secret" "environment_secrets" {
   plaintext_value = each.value.var_value
 }
 
-
 resource "github_repository_environment_deployment_policy" "environment_deployment_policy" {
   for_each       = local.all_environment_deployment_policies
   environment    = github_repository_environment.repository_environment[each.value.env_name].environment
