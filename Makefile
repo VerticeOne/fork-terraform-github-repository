@@ -119,10 +119,10 @@ test/unit-tests:
 	@echo "${YELLOW}[TEST] ${GREEN}Start Running unit tests.${RESET}"
 	$(call quiet-command,cd test ; go test -v -count 1 -timeout 45m -parallel 128 -run $(TEST))
 
-## Generate README.md with Terradoc
-.PHONY: terradoc
-terradoc:
-	$(call quiet-command,terradoc generate -o README.md README.tfdoc.hcl)
+## Generate README.md with terraform-docs
+.PHONY: terraform-docs
+terraform-docs:
+	$(call quiet-command,terraform-docs markdown table --output-file README.md .)
 
 ## Generate shared configuration for tests
 .PHONY: terramate
