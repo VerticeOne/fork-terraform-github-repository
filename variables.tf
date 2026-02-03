@@ -605,11 +605,11 @@ variable "environments" {
     reviewers = optional(object({
       users = optional(list(string), [])
       teams = optional(list(string), [])
-    }), { users = [], teams = [] })
+    }), {})
     deployment_branch_policy = optional(object({
       protected_branches     = optional(bool, false)
       custom_branch_policies = optional(bool, false)
-    }), { protected_branches = false, custom_branch_policies = false })
+    }), {})
     env_variables              = optional(map(string), {})
     env_secrets                = optional(map(string), {})
     branch_deployment_policies = optional(list(string), [])
